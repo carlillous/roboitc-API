@@ -25,7 +25,7 @@ class ServoManager():
     def set_initial_position(self):
         self.pwm.set_all_pwm(0, 330)
         for i in range(len(self.__servo_states)):
-            self.__update_state(i, 0)
+            self.__update_state(i, 90)
 
     def __load_states(self):
         if os.path.exists('servo_states.json'):
