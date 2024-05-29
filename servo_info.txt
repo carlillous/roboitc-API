@@ -1,0 +1,5 @@
+servo conducción izquierda derecha - port0
+servo brazo izquierda derecha - port1
+servo brazo arriba abajo - port2
+movimiento de mano arriba abajo - port3 
+cierre de mano - port4
