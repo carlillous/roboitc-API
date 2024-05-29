@@ -9,8 +9,10 @@ def move_servo(channel, angle):
     try:
         servo_manager.set_servo_angle(channel, angle)
         return jsonify({'status': 'success', 'channel': channel, 'angle': angle}), 200
-    except Exception as e:
+    except ValueError as e:
         return jsonify({'status': 'error', 'message': str(e)}), 400
+    except Exception as e:
+        return jsonify({'status': 'error', 'message': str(e)}), 500
 
 @app.route('/servo/initialize', methods=['POST'])
 def initialize_servo():
@@ -18,7 +20,7 @@ def initialize_servo():
         servo_manager.set_initial_position()
         return jsonify({'status': 'success', 'message': 'Servos initialized to default position'}), 200
     except Exception as e:
-        return jsonify({'status': 'error', 'message': str(e)}), 400
+        return jsonify({'status': 'error', 'message': str(e)}), 500
 
 if __name__ == '__main__':
     app.run(host='0.0.0.0', port=80)
