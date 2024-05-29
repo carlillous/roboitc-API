@@ -38,5 +38,5 @@ class ServoManager():
             json.dump(states, file)
 
     def __update_state(self,channel, angle):
-        self.servo_states[str(channel)] = angle
-        self.__save_states(self.servo_states)
+        self.__servo_states[str(channel)] = angle
+        self.__save_states(self.__servo_states)
