@@ -38,6 +38,10 @@ class ServoManager():
         for i in range(len(self.__servo_states)):
             self.__update_state(i, 90)
 
+    def set_servo_pwm(self,channel,pwm):
+        self.pwm.set_pwm(channel, 0, pwm)
+
+
     def __validate_angle(self, channel, angle):
         if channel in self.__servo_limits:
             min_angle, max_angle = self.__servo_limits[channel]

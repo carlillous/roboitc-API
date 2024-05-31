@@ -15,10 +15,11 @@ def get_servo_angle(channel):
         return jsonify({'status': 'error', 'message': str(e)}), 500
 
 @app.route('/servo/<int:channel>/<int:angle>', methods=['PUT'])
-def move_servo(channel, angle):
+def move_servo(channel, pwm):
     try:
-        servo_manager.set_servo_angle(channel, angle)
-        return jsonify({'status': 'success', 'channel': channel, 'angle': angle}), 200
+        #servo_manager.set_servo_angle(channel, angle)
+        servo_manager.set_servo_pwm(channel,pwm)
+        return jsonify({'status': 'success', 'channel': channel, 'pwm': pwm}), 200
     except ValueError as e:
         return jsonify({'status': 'error', 'message': str(e)}), 400
     except Exception as e:
