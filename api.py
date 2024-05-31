@@ -14,7 +14,7 @@ def get_servo_angle(channel):
     except Exception as e:
         return jsonify({'status': 'error', 'message': str(e)}), 500
 
-@app.route('/servo/<int:channel>/<int:angle>', methods=['PUT'])
+@app.route('/servo/<int:channel>/<int:pwm>', methods=['PUT'])
 def move_servo(channel, pwm):
     try:
         #servo_manager.set_servo_angle(channel, angle)
