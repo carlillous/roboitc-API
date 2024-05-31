@@ -14,7 +14,7 @@ def get_servo_angle(channel):
     except Exception as e:
         return jsonify({'status': 'error', 'message': str(e)}), 500
 
-@app.route('/servo/<int:channel>/<int:angle>', methods=['POST'])
+@app.route('/servo/<int:channel>/<int:angle>', methods=['PUT'])
 def move_servo(channel, angle):
     try:
         servo_manager.set_servo_angle(channel, angle)
@@ -24,7 +24,7 @@ def move_servo(channel, angle):
     except Exception as e:
         return jsonify({'status': 'error', 'message': str(e)}), 500
 
-@app.route('/servo/initialize', methods=['POST'])
+@app.route('/servo/initialize', methods=['PUT'])
 def initialize_servo():
     try:
         servo_manager.set_initial_position()
