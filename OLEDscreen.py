@@ -4,11 +4,6 @@ from luma.oled.device import ssd1306, ssd1325, ssd1331, sh1106
 import time
 import threading
 
-try:
-	serial = i2c(port=1, address=0x40)
-	device = ssd1306(serial, rotate=0)
-except:
-	print('OLED disconnected\nOLED没有连接')
 
 text_1 = 'GEWBOT.COM'
 text_2 = 'IP:CONNECTING'
@@ -29,4 +24,10 @@ def run():
 		time.sleep(1)
 
 if __name__ == '__main__':
+	try:
+		serial = i2c(port=1, address=0x40)
+		device = ssd1306(serial, rotate=0)
+		print("Todo bien jefe")
+	except:
+		print('OLED disconnected\nOLED没有连接')
 	run()
