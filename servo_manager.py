@@ -7,7 +7,6 @@ class ServoManager():
     def __init__(self):
         self.pwm = Adafruit_PCA9685.PCA9685()
         self.pwm.set_pwm_freq(50)
-        self.__servo_states = self.__load_states()
         self.__servo_limits = {
             0: {'angle': (0, 180), 'pwm': (130, 480)},
             1: {'angle': (65, 180), 'pwm': (270, 540)},
@@ -29,6 +28,7 @@ class ServoManager():
             3: 330,
             4: 300
         }
+        self.__servo_states = self.__load_states()
 
     def set_servo_angle(self, channel, angle):
         if not self.__validate_angle(channel, angle):
