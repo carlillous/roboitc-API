@@ -24,16 +24,6 @@ def move_servo_angle(channel, angle):
     except Exception as e:
         return jsonify({'status': 'error', 'message': str(e)}), 500
 
-@app.route('/servo/<int:channel>/angle', methods=['GET'])
-def get_servo_angle(channel):
-    try:
-        angle = servo_manager.get_servo_angle(channel)
-        if angle is None:
-            return jsonify({'status': 'error', 'message': 'Channel not found'}), 404
-        return jsonify({'status': 'success', 'channel': channel, 'angle': angle}), 200
-    except Exception as e:
-        return jsonify({'status': 'error', 'message': str(e)}), 500
-
 @app.route('/servo/<int:channel>/pwm/<int:pwm>', methods=['PUT'])
 def move_servo_pwm(channel, pwm):
     try:
