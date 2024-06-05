@@ -79,7 +79,7 @@ class ServoManager():
         if os.path.exists('servo_states.json'):
             with open('servo_states.json', 'r') as file:
                 return json.load(file)
-        return {str(i): {'angle': 0, 'pwm': self.__initial_positions[i]} for i in range(5)}
+        return {str(i): {'angle': 0, 'pwm': list(self.__initial_positions.values())[i]} for i in range(len(self.__initial_positions))}
 
     def __save_states(self, states):
         with open('servo_states.json', 'w') as file:
