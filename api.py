@@ -53,6 +53,19 @@ def initialize_servo():
     except Exception as e:
         return jsonify({'status': 'error', 'message': str(e)}), 500
 
+@app.route('/servo/angles', methods=['GET'])
+def get_angles():
+    try:
+        angles = []
+        for i in range(0,5):
+            angle = servo_manager.get_servo_angle(i)
+            angles.append(angle)
+        if angles is None:
+            return jsonify({'status': 'error', 'message': 'Error'}), 404
+        return jsonify({'status': 'success', 'angles':angles}), 200
+    except Exception as e:
+        return jsonify({'status': 'error', 'message': str(e)}), 500
+
 @app.route('/status', methods=['GET'])
 def get_system_status():
     try:
