@@ -93,7 +93,7 @@ def move_motor():
         data = request.json
         speed = data.get('speed', 100)
         direction = data.get('direction')
-        turn = data.get('turn')
+        turn = data.get('turn','no')
         motor_control.move(speed=speed, direction=direction, turn=turn)
         return jsonify({'status': 'success', 'message': f'Motor moving {direction}, {turn} at {speed}'}), 200
     except Exception as e:
