@@ -1,9 +1,11 @@
 from flask import Flask, request, jsonify
 from servo_manager import ServoManager
 from system_status import SystemStatus
+from motor_controller import MotorControl
 
 app = Flask(__name__)
 servo_manager = ServoManager()
+motor_control = MotorControl()
 
 @app.route('/servo/<int:channel>/angle', methods=['GET'])
 def get_servo_angle(channel):
@@ -78,8 +80,33 @@ def get_system_status():
     except Exception as e:
         return jsonify({'status': 'error', 'message': str(e)}), 500
 
-if __name__ == '__main__':
+@app.route('/motor/start', methods=['PUT'])
+def start_motor():
     try:
-        app.run(host='0.0.0.0', port=80)
-    except KeyboardInterrupt:
-        print("Interrupción con Ctrl+C recibida.")
+        motor_control.setup()
+        return jsonify({'status': 'success', 'message': 'Motor initialized and started'}), 200
+    except Exception as e:
+        return jsonify({'status': 'error', 'message': str(e)}), 500
+@app.route('/motor/move', methods=['PUT'])
+def move_motor():
+    try:
+        data = request.json
+        speed = data.get('speed', 100)
+        direction = data.get('direction')
+        turn = data.get('turn')
+        motor_control.move(speed=speed, direction=direction, turn=turn)
+        return jsonify({'status': 'success', 'message': f'Motor moving {direction}, {turn} at {speed}'}), 200
+    except Exception as e:
+        return jsonify({'status': 'error', 'message': str(e)}), 500
+
+@app.route('/motor/stop', methods=['PUT'])
+def stop_motor():
+    try:
+        motor_control.stop()
+        return jsonify({'status': 'success', 'message': 'Motor stopped'}), 200
+    except Exception as e:
+        return jsonify({'status': 'error', 'message': str(e)}), 500
+
+
+if __name__ == '__main__':
+    app.run(host='0.0.0.0', port=80)

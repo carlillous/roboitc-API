@@ -15,7 +15,7 @@ class MotorControl:
         self.pwm_B = None
         self.setup()
 
-    def motor_stop(self):
+    def __motor_stop(self):
         GPIO.output(MotorControl.Motor_A_Pin1, GPIO.LOW)
         GPIO.output(MotorControl.Motor_A_Pin2, GPIO.LOW)
         GPIO.output(MotorControl.Motor_B_Pin1, GPIO.LOW)
@@ -33,7 +33,7 @@ class MotorControl:
         GPIO.setup(MotorControl.Motor_B_Pin1, GPIO.OUT)
         GPIO.setup(MotorControl.Motor_B_Pin2, GPIO.OUT)
 
-        self.motor_stop()
+        self.__motor_stop()
         self.pwm_A = GPIO.PWM(MotorControl.Motor_A_EN, 1000)
         self.pwm_B = GPIO.PWM(MotorControl.Motor_B_EN, 1000)
         self.pwm_A.start(0)
@@ -64,7 +64,7 @@ class MotorControl:
         self.__control_motor(MotorControl.Motor_A_Pin1, MotorControl.Motor_A_Pin2, MotorControl.Motor_A_EN, self.pwm_A,
                              status, direction, speed)
 
-    def move(self, speed=100, direction=None, turn=None, radius=0.6):  # 0 < radius <= 1
+    def move(self, speed=100, direction=None, turn=None):  # 0 < radius <= 1
         if direction == 'forward':
             if turn == 'right':
                 self.__motor_left(0, MotorControl.Dir_forward, speed)
@@ -93,10 +93,10 @@ class MotorControl:
                 self.__motor_left(1, MotorControl.Dir_forward, speed)
                 self.__motor_right(1, MotorControl.Dir_backward, speed)
             else:
-                self.__motorStop()
+                self.__motor_stop()
         else:
             pass
 
-    def destroy(self):
-        self.motorStop()
-        GPIO.cleanup()  # Release resource
+    def stop(self):
+        self.__motor_stop()
+        GPIO.cleanup()
