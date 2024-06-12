@@ -1,0 +1,6 @@
+100 - 560
+servo0 -> 130,310,480. Pos inicial=310
+servo1 ->  120 ,330,540 . Pos inicial= 330
+servo2 -> 160, 360, 560. Pos inicial = 300
+servo3 -> 200,330,540 Pos inicial = 330
+servo4 -> 120-300 Pos inicial=300
