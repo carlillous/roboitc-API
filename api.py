@@ -91,11 +91,15 @@ def start_motor():
 def move_motor():
     try:
         data = request.json
+        if data is None:
+            raise ValueError("No JSON data provided")
         speed = data.get('speed', 100)
         direction = data.get('direction')
-        turn = data.get('turn','no')
+        turn = data.get('turn', 'no')
         motor_control.move(speed=speed, direction=direction, turn=turn)
         return jsonify({'status': 'success', 'message': f'Motor moving {direction}, {turn} at {speed}'}), 200
+    except ValueError as e:
+        return jsonify({'status': 'error', 'message': str(e)}), 400
     except Exception as e:
         return jsonify({'status': 'error', 'message': str(e)}), 500
 
