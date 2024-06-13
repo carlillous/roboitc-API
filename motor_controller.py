@@ -49,13 +49,11 @@ class MotorControl:
             GPIO.output(en, GPIO.LOW)
         else:
             if direction == MotorControl.Dir_forward:
-                self.led.colorWipe(0,255,0)
                 GPIO.output(pin1, GPIO.LOW)
                 GPIO.output(pin2, GPIO.HIGH)
                 pwm.start(100)
                 pwm.ChangeDutyCycle(speed)
             elif direction == MotorControl.Dir_backward:
-                self.led.colorWipe(255, 0, 0)
                 GPIO.output(pin1, GPIO.HIGH)
                 GPIO.output(pin2, GPIO.LOW)
                 pwm.start(0)
@@ -71,6 +69,7 @@ class MotorControl:
 
     def move(self, speed=100, direction=None, turn=None):  # 0 < radius <= 1
         if direction == 'forward':
+            self.led.colorWipe(0, 255, 0)
             if turn == 'right':
                 self.__motor_left(0, MotorControl.Dir_forward, speed)
                 self.__motor_right(1, MotorControl.Dir_forward, speed)
@@ -81,6 +80,7 @@ class MotorControl:
                 self.__motor_left(1, MotorControl.Dir_forward, speed)
                 self.__motor_right(1, MotorControl.Dir_forward, speed)
         elif direction == 'backward':
+            self.led.colorWipe(255, 0, 0)
             if turn == 'right':
                 self.__motor_left(0, MotorControl.Dir_backward, speed)
                 self.__motor_right(1, MotorControl.Dir_backward, speed)
@@ -92,9 +92,11 @@ class MotorControl:
                 self.__motor_right(1, MotorControl.Dir_backward, speed)
         else:
             if turn == 'right':
+                self.led.colorWipe(255, 255, 0)
                 self.__motor_left(1, MotorControl.Dir_backward, speed)
                 self.__motor_right(1, MotorControl.Dir_forward, speed)
             elif turn == 'left':
+                self.led.colorWipe(255, 255, 0)
                 self.__motor_left(1, MotorControl.Dir_forward, speed)
                 self.__motor_right(1, MotorControl.Dir_backward, speed)
             else:
