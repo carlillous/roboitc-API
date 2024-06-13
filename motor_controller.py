@@ -1,4 +1,5 @@
 import RPi.GPIO as GPIO
+from LED import LED
 
 
 class MotorControl:
@@ -13,6 +14,7 @@ class MotorControl:
     def __init__(self):
         self.pwm_A = None
         self.pwm_B = None
+        self.led = LED()
         self.setup()
 
     def stop(self):
@@ -22,6 +24,7 @@ class MotorControl:
         GPIO.output(MotorControl.Motor_B_Pin2, GPIO.LOW)
         GPIO.output(MotorControl.Motor_A_EN, GPIO.LOW)
         GPIO.output(MotorControl.Motor_B_EN, GPIO.LOW)
+        self.led.colorWipe(0,0,0)
 
     def setup(self):
         GPIO.setwarnings(False)
@@ -46,11 +49,13 @@ class MotorControl:
             GPIO.output(en, GPIO.LOW)
         else:
             if direction == MotorControl.Dir_forward:
+                self.led.colorWipe(0,255,0)
                 GPIO.output(pin1, GPIO.HIGH)
                 GPIO.output(pin2, GPIO.LOW)
                 pwm.start(100)
                 pwm.ChangeDutyCycle(speed)
             elif direction == MotorControl.Dir_backward:
+                self.led.colorWipe(255, 0, 0)
                 GPIO.output(pin1, GPIO.LOW)
                 GPIO.output(pin2, GPIO.HIGH)
                 pwm.start(0)
