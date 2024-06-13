@@ -112,7 +112,7 @@ def stop_motor():
         return jsonify({'status': 'error', 'message': str(e)}), 500
 
 @app.route('/motor/clear', methods=['PUT'])
-def stop_motor():
+def clear_motor():
     try:
         motor_control.reset()
         return jsonify({'status': 'success', 'message': 'Motor Instance cleared'}), 200
