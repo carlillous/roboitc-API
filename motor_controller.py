@@ -62,11 +62,11 @@ class MotorControl:
                 pwm.ChangeDutyCycle(speed)
 
     def __motor_left(self, status, direction, speed):
-        self.__control_motor(MotorControl.Motor_B_Pin1, MotorControl.Motor_B_Pin2, MotorControl.Motor_B_EN, self.pwm_B,
+        self.__control_motor(MotorControl.Motor_A_Pin1, MotorControl.Motor_A_Pin2, MotorControl.Motor_A_EN, self.pwm_A,
                              status, direction, speed)
 
     def __motor_right(self, status, direction, speed):
-        self.__control_motor(MotorControl.Motor_A_Pin1, MotorControl.Motor_A_Pin2, MotorControl.Motor_A_EN, self.pwm_A,
+        self.__control_motor(MotorControl.Motor_B_Pin1, MotorControl.Motor_B_Pin2, MotorControl.Motor_B_EN, self.pwm_B,
                              status, direction, speed)
 
     def move(self, speed=100, direction=None, turn=None):  # 0 < radius <= 1
