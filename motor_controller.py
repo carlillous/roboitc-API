@@ -50,14 +50,14 @@ class MotorControl:
         else:
             if direction == MotorControl.Dir_forward:
                 self.led.colorWipe(0,255,0)
-                GPIO.output(pin1, GPIO.HIGH)
-                GPIO.output(pin2, GPIO.LOW)
+                GPIO.output(pin1, GPIO.LOW)
+                GPIO.output(pin2, GPIO.HIGH)
                 pwm.start(100)
                 pwm.ChangeDutyCycle(speed)
             elif direction == MotorControl.Dir_backward:
                 self.led.colorWipe(255, 0, 0)
-                GPIO.output(pin1, GPIO.LOW)
-                GPIO.output(pin2, GPIO.HIGH)
+                GPIO.output(pin1, GPIO.HIGH)
+                GPIO.output(pin2, GPIO.LOW)
                 pwm.start(0)
                 pwm.ChangeDutyCycle(speed)
 
