@@ -90,7 +90,7 @@ class MotorControl:
             else:
                 self.__motor_left(1, MotorControl.Dir_backward, speed)
                 self.__motor_right(1, MotorControl.Dir_backward, speed)
-        elif direction is None:
+        else:
             if turn == 'right':
                 self.__motor_left(1, MotorControl.Dir_backward, speed)
                 self.__motor_right(1, MotorControl.Dir_forward, speed)
@@ -99,8 +99,7 @@ class MotorControl:
                 self.__motor_right(1, MotorControl.Dir_backward, speed)
             else:
                 self.stop()
-        else:
-            pass
+                raise Exception("Indique minimo una dirección/giro.")
 
     def reset(self):
         self.stop()
