@@ -111,6 +111,14 @@ def stop_motor():
     except Exception as e:
         return jsonify({'status': 'error', 'message': str(e)}), 500
 
+@app.route('/motor/clear', methods=['PUT'])
+def stop_motor():
+    try:
+        motor_control.reset()
+        return jsonify({'status': 'success', 'message': 'Motor Instance cleared'}), 200
+    except Exception as e:
+        return jsonify({'status': 'error', 'message': str(e)}), 500
+
 
 if __name__ == '__main__':
     app.run(host='0.0.0.0', port=80)

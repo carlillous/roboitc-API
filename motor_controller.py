@@ -15,7 +15,7 @@ class MotorControl:
         self.pwm_B = None
         self.setup()
 
-    def __motor_stop(self):
+    def stop(self):
         GPIO.output(MotorControl.Motor_A_Pin1, GPIO.LOW)
         GPIO.output(MotorControl.Motor_A_Pin2, GPIO.LOW)
         GPIO.output(MotorControl.Motor_B_Pin1, GPIO.LOW)
@@ -33,7 +33,7 @@ class MotorControl:
         GPIO.setup(MotorControl.Motor_B_Pin1, GPIO.OUT)
         GPIO.setup(MotorControl.Motor_B_Pin2, GPIO.OUT)
 
-        self.__motor_stop()
+        self.stop()
         self.pwm_A = GPIO.PWM(MotorControl.Motor_A_EN, 1000)
         self.pwm_B = GPIO.PWM(MotorControl.Motor_B_EN, 1000)
         self.pwm_A.start(0)
@@ -93,10 +93,10 @@ class MotorControl:
                 self.__motor_left(1, MotorControl.Dir_forward, speed)
                 self.__motor_right(1, MotorControl.Dir_backward, speed)
             else:
-                self.__motor_stop()
+                self.stop()
         else:
             pass
 
-    def stop(self):
-        self.__motor_stop()
+    def reset(self):
+        self.stop()
         GPIO.cleanup()
