@@ -1,8 +1,10 @@
 import Adafruit_PCA9685
+import kinematics
 import json
 import os
 
-class ServoManager():
+
+class ServoManager:
 
     def __init__(self):
         self.pwm = Adafruit_PCA9685.PCA9685()
@@ -72,14 +74,20 @@ class ServoManager():
         return True
 
     def __validate_kinematics(self, channel, angle):
-        # TODO: Implementar validación cinemática
+        angles = [self.__servo_states[key]["angle"] for key in self.__servo_states]
+        angles[int(channel)] = angle
+        joint_angles = angles[1:-1]
+        x, y, z = kinematics.DirectKinematics.calculate_position(joint_angles)
+        if z <= 0:
+            return False
         return True
 
     def __load_states(self):
         if os.path.exists('servo_states.json'):
             with open('servo_states.json', 'r') as file:
                 return json.load(file)
-        return {str(i): {'angle': 0, 'pwm': list(self.__initial_positions.values())[i]} for i in range(len(self.__initial_positions))}
+        return {str(i): {'angle': 0, 'pwm': list(self.__initial_positions.values())[i]} for i in
+                range(len(self.__initial_positions))}
 
     def __save_states(self, states):
         with open('servo_states.json', 'w') as file:
